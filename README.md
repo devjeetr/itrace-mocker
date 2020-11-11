@@ -23,6 +23,16 @@ Use custom mock-data:
 python mocker.py --data ./data.json
 ```
 
+Set session duration:
+
+```
+# run experiment for 10 seconds
+python mocker.py --duration 10
+
+# run experiment for 5 minutes
+python mocker.py --duration 5m
+```
+
 For help
 ```
 python mocker.py -h
