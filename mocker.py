@@ -4,6 +4,7 @@ import socket
 import time
 from argparse import ArgumentParser, Namespace, ArgumentDefaultsHelpFormatter
 from typing import Any, Callable, List, Tuple, Generator, Iterator
+import os
 
 import numpy as np
 import pandas as pd
@@ -164,7 +165,7 @@ if __name__ == "__main__":
         data=mock_data,
         timing_fn=time.perf_counter,
         port=args.port,
-        data_path=args.mock_session_path,
+        data_path=os.path.abspath(args.mock_session_path),
     )
 
     if should_save:
