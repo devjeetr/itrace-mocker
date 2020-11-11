@@ -1,6 +1,5 @@
 import itertools
 import json
-import sched
 import socket
 import time
 from argparse import ArgumentParser, Namespace, ArgumentDefaultsHelpFormatter
@@ -9,8 +8,6 @@ from typing import Any, Callable, List, Tuple, Generator, Iterator
 import numpy as np
 import pandas as pd
 from humanfriendly import format_timespan
-
-from shared import seconds_to_ns
 
 
 def every(
