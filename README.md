@@ -16,11 +16,19 @@ python mocker.py --freq 5000
 Save mock data used to `mock-data.json`
 ```
 python mocker.py --freq 5000 --save
+
+
+# generate mock data where x goes from 400-900
+# and y goes from 300 - 700
+python mocker.py --x 400:900 --y 300:700
 ```
+
+** You might need to adjust the x & y ranges so that they correspond to valid line/col numbers, otherwise plugins might not even try to perform a lookup and give inaccurate assessments of performance **
 
 Use custom mock-data:
 ```
 python mocker.py --data ./data.json
+
 ```
 
 Set session duration:

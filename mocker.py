@@ -5,7 +5,7 @@ import time
 from argparse import ArgumentParser, Namespace, ArgumentDefaultsHelpFormatter
 from typing import Any, Callable, List, Tuple, Generator, Iterator
 import os
-
+import re
 import numpy as np
 import pandas as pd
 from humanfriendly import format_timespan
@@ -100,7 +100,18 @@ def start_mock_server(
         print()
 
 
-def parse_time(time_str: str):
+def parse_range(range_str: str):
+    pat = r"(?P<start>[0-9])*:(?P<end>[0-9]*)"
+    match = re.match(pat, range_str)
+
+    assert (
+        match and match.group("start") and match.group("end")
+    ), "Check value for --x. It must be of format [START]:[END], eg: 0:500."
+
+    return [int(match.group("start")), int(match.group("end"))]
+
+
+def parse_time(time_str: str) -> int:
     try:
         return int(time_str)
     except ValueError:
@@ -131,6 +142,15 @@ def get_cmd_args() -> Namespace:
     parser.add_argument(
         "--mock-size", help="size of the mock data", default=500, type=int
     )
+
+    parser.add_argument(
+        "--x", help="range for generated x coordinate. eg: 100:500", default="400:900"
+    )
+
+    parser.add_argument(
+        "--y", help="range for generated y coordinate. eg: 100:500", default="400:900"
+    )
+
     parser.add_argument(
         "--save",
         help="If data is not provided, setting --save will save the generated mock data",
@@ -156,8 +176,9 @@ if __name__ == "__main__":
                 "x" in mock_data[0] and "y" in mock_data[0]
             ), "Mock data must be an array of {x, y}"
     else:
-        mock_data = generate_mock_data(args.mock_size)
-        should_save = True
+        xlim, ylim = map(parse_range, (args.x, args.y))
+        mock_data = generate_mock_data(args.mock_size, xlim, ylim)
+        should_save = args.save
 
     start_mock_server(
         frequency=args.freq,
