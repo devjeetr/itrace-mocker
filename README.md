@@ -23,7 +23,7 @@ python mocker.py --freq 5000 --save
 python mocker.py --x 400:900 --y 300:700
 ```
 
-** You might need to adjust the x & y ranges so that they correspond to valid line/col numbers, otherwise plugins might not even try to perform a lookup and give inaccurate assessments of performance **
+**You might need to adjust the x & y ranges so that they correspond to valid line/col numbers, otherwise plugins might not even try to perform a lookup and give inaccurate assessments of performance**
 
 Use custom mock-data:
 ```
